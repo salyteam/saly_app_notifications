@@ -1,0 +1,22 @@
+name: saly_app_notifications
+description: "Custom notification for McFlyer app"
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.9.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  saly_ui_kit:
+    git:
+      url: https://github.com/salyteam/saly_ui_kit.git
+      ref: main
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+flutter:
