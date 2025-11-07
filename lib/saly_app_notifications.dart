@@ -56,8 +56,6 @@ class NotificationManagerState extends State<NotificationManager> with TickerPro
 
   void showNotification(Notification notification) => _showNotification(notification);
 
-  Future<void> scheduleNotification(Notification notification) async {}
-
   void _showNotification(Notification notification) {
     OverlayEntry? overlayEntry;
 
@@ -166,6 +164,24 @@ class _NotificationWidgetState extends State<_NotificationWidget> with TickerPro
     widget.onRemove?.call();
   }
 
+  DismissDirection _direction() {
+    if (_notification.axis == Axis.vertical) {
+      return switch (_notification.alignment) {
+        Alignment.topCenter || Alignment.topRight || Alignment.topLeft => DismissDirection.up,
+        Alignment.bottomCenter || Alignment.bottomRight || Alignment.bottomLeft => DismissDirection.down,
+        _ => DismissDirection.up,
+      };
+    } else {
+      return switch (_notification.alignment) {
+        Alignment.bottomCenter => DismissDirection.down,
+        Alignment.bottomRight || Alignment.topRight => DismissDirection.startToEnd,
+        Alignment.bottomLeft || Alignment.topLeft => DismissDirection.endToStart,
+        Alignment.topCenter => DismissDirection.up,
+        _ => DismissDirection.up,
+      };
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Material(
     color: Colors.transparent,
@@ -180,10 +196,11 @@ class _NotificationWidgetState extends State<_NotificationWidget> with TickerPro
         position: _slideAnimation!,
         child: Dismissible(
           key: UniqueKey(),
+
           onDismissed: (_) {
             widget.onRemove?.call();
           },
-          direction: _notification.axis == Axis.vertical ? DismissDirection.vertical : DismissDirection.horizontal,
+          direction: _direction(),
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: context.colors.neutralPrimaryS2,
