@@ -53,19 +53,20 @@ class NotificationManager extends StatefulWidget {
 ///for showing, position, and scheduling
 class NotificationManagerState extends State<NotificationManager> with TickerProviderStateMixin {
   final _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
 
   void showNotification(Notification notification) => _showNotification(notification);
 
   void _showNotification(Notification notification) {
-    OverlayEntry? overlayEntry;
+    if (_overlayEntry != null) return;
 
     void onRemove() {
-      overlayEntry?.remove();
-      overlayEntry?.dispose();
-      setState(() => overlayEntry = null);
+      _overlayEntry?.remove();
+      _overlayEntry?.dispose();
+      setState(() => _overlayEntry = null);
     }
 
-    overlayEntry = OverlayEntry(
+    _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         top: 0,
         width: notification.width ?? 400,
@@ -81,7 +82,7 @@ class NotificationManagerState extends State<NotificationManager> with TickerPro
       ),
     );
 
-    Overlay.of(context).insert(overlayEntry!);
+    Overlay.of(context).insert(_overlayEntry!);
   }
 
   @override
