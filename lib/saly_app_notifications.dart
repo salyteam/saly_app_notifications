@@ -12,8 +12,8 @@ class Notification {
     this.subtitle,
     this.curve,
     this.offset,
-    this.insetPadding,
     this.width,
+    this.insetPadding = const EdgeInsets.symmetric(horizontal: 16),
     this.duration = const Duration(seconds: 10),
     this.dismissed = false,
     this.axis = Axis.vertical,
@@ -58,12 +58,14 @@ class NotificationManagerState extends State<NotificationManager> with TickerPro
   void showNotification(Notification notification) => _showNotification(notification);
 
   void _showNotification(Notification notification) {
-    if (_overlayEntry != null) return;
-
     void onRemove() {
       _overlayEntry?.remove();
       _overlayEntry?.dispose();
       setState(() => _overlayEntry = null);
+    }
+
+    if (_overlayEntry != null) {
+      onRemove();
     }
 
     _overlayEntry = OverlayEntry(
