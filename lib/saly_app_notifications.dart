@@ -71,7 +71,7 @@ class NotificationManagerState extends State<NotificationManager> with TickerPro
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         top: 0,
-        width: notification.width ?? 400,
+        width: notification.width ?? MediaQuery.sizeOf(context).width,
         child: CompositedTransformFollower(
           link: _layerLink,
           offset: notification.offset ?? const Offset(0, 8),
