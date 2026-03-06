@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saly_ui_kit/saly_ui_kit.dart';
+import 'package:mak_flyer_ui_kit/mak_flyer_ui_kit.dart';
 
 ///Defines notification appearance
 enum NotificationType { ok, error, info }
@@ -242,7 +242,7 @@ class _NotificationWidgetState extends State<_NotificationWidget> with TickerPro
                             padding: const EdgeInsets.all(12),
                             child: GestureDetector(
                               onTap: _remove,
-                              child: SalyAssets.icons.cross.svg(
+                              child: MFAssets.icons.cross.svg(
                                 colorFilter: ColorFilter.mode(context.colors.neutralSecondaryS4, BlendMode.srcIn),
                               ),
                             ),
@@ -282,8 +282,8 @@ final class _NotificationTypeMarker extends StatelessWidget {
   };
 
   SvgGenImage _icon() => switch (_type) {
-    NotificationType.ok => SalyAssets.icons.statusOk,
-    _ => SalyAssets.icons.error,
+    NotificationType.ok => MFAssets.icons.statusOk,
+    _ => MFAssets.icons.error,
   };
 
   @override
